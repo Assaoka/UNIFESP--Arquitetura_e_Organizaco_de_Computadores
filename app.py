@@ -13,8 +13,6 @@ st.html('''
     header {visibility: hidden;} 
 </style>''')
 
-st.sidebar.image('Unifesp.png')
-
 # Funções lambda para as distribuições
 normal_pdf = lambda x, loc=0, scale=1: 1/(scale * sqrt(2*pi)) * exp(-0.5 * ((x - loc) / scale)**2)
 t_pdf = lambda x, df: gamma((df + 1) / 2) / (sqrt(df * pi) * gamma(df / 2)) * (1 + (x**2) / df) ** (-(df + 1) / 2)
@@ -36,28 +34,6 @@ latex_formulas = {
     'F': r'f(x) = \frac{\left(\frac{d_1}{d_2}\right)^{\frac{d_1}{2}} x^{\frac{d_1}{2}-1}}{B\left(\frac{d_1}{2}, \frac{d_2}{2}\right) \left(1+\frac{d_1}{d_2}x\right)^{\frac{d_1+d_2}{2}}}, \quad x>0'
 }
 
-
-st.markdown(
-    """
-    <style>
-    /* Define a cor do texto na sidebar */
-    [data-testid="stSidebar"] * {
-        color: white !important;
-    }
-    
-    /* Define a cor do texto dos inputs */
-    [data-testid="stSidebar"] label {
-        color: white !important;
-    }
-
-    /* Ajusta o fundo da sidebar para garantir contraste */
-    [data-testid="stSidebar"] {
-        background-color: #1e5a36 !important;  /* Verde escuro */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 # Interface na sidebar
 with st.sidebar:
     with st.container(border=True):
