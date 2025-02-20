@@ -6,6 +6,14 @@ from numpy import sqrt, pi, exp
 from scipy.special import gamma, beta
 
 st.set_page_config(page_title="Distribuições e Testes", layout="wide")
+st.html('''
+<style>
+    #MainMenu {visibility: collapsed;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;} 
+</style>''')
+
+st.sidebar.image('Unifesp.png')
 
 # Funções lambda para as distribuições
 normal_pdf = lambda x, loc=0, scale=1: 1/(scale * sqrt(2*pi)) * exp(-0.5 * ((x - loc) / scale)**2)
@@ -28,6 +36,28 @@ latex_formulas = {
     'F': r'f(x) = \frac{\left(\frac{d_1}{d_2}\right)^{\frac{d_1}{2}} x^{\frac{d_1}{2}-1}}{B\left(\frac{d_1}{2}, \frac{d_2}{2}\right) \left(1+\frac{d_1}{d_2}x\right)^{\frac{d_1+d_2}{2}}}, \quad x>0'
 }
 
+
+st.markdown(
+    """
+    <style>
+    /* Define a cor do texto na sidebar */
+    [data-testid="stSidebar"] * {
+        color: white !important;
+    }
+    
+    /* Define a cor do texto dos inputs */
+    [data-testid="stSidebar"] label {
+        color: white !important;
+    }
+
+    /* Ajusta o fundo da sidebar para garantir contraste */
+    [data-testid="stSidebar"] {
+        background-color: #1e5a36 !important;  /* Verde escuro */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # Interface na sidebar
 with st.sidebar:
     with st.container(border=True):
@@ -77,6 +107,8 @@ with st.sidebar:
 x = np.linspace(xini, xfim, int(n_div))
 y = f(x)
 
+st.write(f"# Distribuição {dist_selected}:")
+
 # Exibe a fórmula da distribuição selecionada
 st.markdown("##### Fórmula da Distribuição:")
 st.latex(latex_formulas[dist_selected])
@@ -112,6 +144,8 @@ def critical_value_left(x, y, alpha):
         else:
             high = mid
     return (low + high) / 2
+
+
 
 # Cálculo dos valores críticos conforme o tipo de teste
 if tipo == 'Unilateral à direita':
